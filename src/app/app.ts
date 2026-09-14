@@ -1,4 +1,4 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, signal } from '@angular/core';
 
 interface GalleryImage { src: string; alt: string; }
 
@@ -7,7 +7,7 @@ interface GalleryImage { src: string; alt: string; }
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements AfterViewInit, OnDestroy {
   readonly whatsappUrl = 'https://wa.me/5511948348038?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o.';
   readonly currentYear = new Date().getFullYear();
   readonly menuOpen = signal(false);
@@ -89,6 +89,29 @@ export class App {
     { question: 'Quanto tempo dura o tratamento?', answer: 'O tempo varia conforme o procedimento e o seu planejamento. Na avaliação, explicamos cada etapa e prazo com total transparência.' },
     { question: 'A harmonização facial é indicada para mim?', answer: 'A indicação depende de uma avaliação individual. O objetivo é equilibrar e valorizar seus traços, nunca padronizar rostos.' }
   ];
+  private revealObserver?: IntersectionObserver;
+
+  ngAfterViewInit(): void {
+    this.revealObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            this.revealObserver?.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -48px' }
+    );
+
+    document.querySelectorAll<HTMLElement>('.reveal').forEach(element => {
+      this.revealObserver?.observe(element);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.revealObserver?.disconnect();
+  }
 
   @HostListener('window:scroll') onScroll(): void { this.isScrolled.set(window.scrollY > 24); }
   nextTestimonial(): void { this.activeTestimonial.update(index => (index + 1) % this.testimonials.length); }

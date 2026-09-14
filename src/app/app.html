@@ -73,7 +73,7 @@
     <span></span>
     <p>Resultados naturais</p>
   </section>
-  <section class="section about section-grid" id="sobre">
+  <section class="section about section-grid reveal" id="sobre">
     <div class="section-heading">
       <p class="eyebrow">Sobre a profissional</p>
       <h2>Seu sorriso merece<br /><em>um olhar atento.</em></h2>
@@ -98,7 +98,7 @@
       /><span class="vertical-label">AL · ESTÉTICA</span>
     </div>
   </section>
-  <section class="section procedures-section" id="procedimentos">
+  <section class="section procedures-section reveal" id="procedimentos">
     <div class="section-heading section-heading--center">
       <p class="eyebrow">Cuidado sob medida</p>
       <h2>Procedimentos que<br /><em>contam a sua história.</em></h2>
@@ -106,7 +106,11 @@
     </div>
     <div class="procedure-grid">
       @for (procedure of procedures; track procedure.title; let i = $index) {
-        <article class="procedure-card" [class.featured]="i === 1">
+        <article
+          class="procedure-card reveal reveal--up"
+          [class.featured]="i === 1"
+          [style.--reveal-delay]="i * 100 + 'ms'"
+        >
           <div class="procedure-visual">
             <img [src]="procedure.image" [alt]="procedure.title" loading="lazy" />
           </div>
@@ -119,7 +123,7 @@
       }
     </div>
   </section>
-  <section class="results-section" id="resultados">
+  <section class="results-section reveal" id="resultados">
     <div class="results-heading">
       <div class="results-heading-copy">
         <p class="eyebrow">Resultados reais</p>
@@ -142,7 +146,7 @@
       }
     </div>
   </section>
-  <section class="testimonials section">
+  <section class="testimonials section reveal" >
     <div class="testimonials-copy">
       <p class="eyebrow">O que dizem</p>
       <h2>Experiências que<br /><em>ficam no coração.</em></h2>
@@ -162,14 +166,14 @@
       </div>
     </div>
   </section>
-  <section class="section benefits-section">
+  <section class="section benefits-section reveal" >
     <div class="section-heading section-heading--center">
       <p class="eyebrow">Uma experiência completa</p>
       <h2>Detalhes que fazem<br /><em>toda a diferença.</em></h2>
     </div>
     <div class="benefits-grid">
       @for (benefit of benefits; track benefit.title) {
-        <div class="benefit">
+        <div class="benefit reveal reveal--up" [style.--reveal-delay]="$index * 80 + 'ms'">
           <span class="benefit-icon">{{ benefit.icon }}</span>
           <h3>{{ benefit.title }}</h3>
           <p>{{ benefit.text }}</p>
@@ -177,7 +181,7 @@
       }
     </div>
   </section>
-  <section class="faq-section section">
+  <section class="faq-section section reveal" >
     <div class="section-heading">
       <p class="eyebrow">Tem alguma dúvida?</p>
       <h2>Clareza para você<br /><em>decidir com calma.</em></h2>
@@ -201,7 +205,7 @@
       }
     </div>
   </section>
-  <section class="final-cta">
+  <section class="final-cta reveal" >
     <div class="final-cta-inner">
       <p class="eyebrow">O próximo capítulo começa aqui</p>
       <h2>Pronta para se<br /><em>reconhecer no espelho?</em></h2>
@@ -211,7 +215,7 @@
       >
     </div>
   </section>
-  <section class="contact-section section" id="contato">
+  <section class="contact-section section reveal" id="contato">
     <div class="contact-info">
       <p class="eyebrow">Onde estamos</p>
       <h2>Venha viver essa<br /><em>experiência.</em></h2>
